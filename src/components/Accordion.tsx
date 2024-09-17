@@ -9,7 +9,7 @@ type AccordianProps = {
   defaultOpen: boolean;
 };
 
-function Accordion({ heading, children, defaultOpen }: AccordianProps) {
+function Accordion({ heading, children, defaultOpen = false }: AccordianProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
@@ -35,9 +35,5 @@ function Accordion({ heading, children, defaultOpen }: AccordianProps) {
     </Box>
   );
 }
-
-Accordion.defaultProps = {
-  defaultOpen: false,
-};
 
 export default Accordion;

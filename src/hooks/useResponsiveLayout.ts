@@ -1,25 +1,25 @@
-import { useMedia } from "react-media";
+import { useMediaQuery } from 'react-responsive'
 
 function useResponsiveLayout() {
-  const isMediumScreen = useMedia({ query: "(min-width: 500px)" });
-  const isLargeScreen = useMedia({ query: "(min-width: 1500px)" });
+  const isMediumScreen = useMediaQuery({ query: "(min-width: 500px)" });
+  const isLargeScreen = useMediaQuery({ query: "(min-width: 1500px)" });
   const screenSize = isLargeScreen
     ? "large"
     : isMediumScreen
-    ? "medium"
-    : "small";
+      ? "medium"
+      : "small";
 
   const modalSize = isLargeScreen
     ? "842px"
     : isMediumScreen
-    ? "642px"
-    : "500px";
+      ? "642px"
+      : "500px";
 
   const tileSize = isLargeScreen
     ? "small"
     : isMediumScreen
-    ? "medium"
-    : "large";
+      ? "medium"
+      : "large";
 
   const tileGridColumns = isLargeScreen ? 4 : isMediumScreen ? 3 : 2;
 

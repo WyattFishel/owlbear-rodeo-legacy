@@ -13,8 +13,8 @@ function StyledModal({
   isOpen,
   onRequestClose,
   children,
-  allowClose,
-  style,
+  allowClose = true,
+  style = {},
   ...props
 }: ModalProps) {
   const { theme } = useThemeUI();
@@ -78,10 +78,5 @@ function StyledModal({
     </Modal>
   );
 }
-
-StyledModal.defaultProps = {
-  allowClose: true,
-  style: {},
-};
 
 export default StyledModal;

@@ -44,10 +44,10 @@ function SelectDataModal({
   isOpen,
   onRequestClose,
   onConfirm,
-  confirmText,
-  label,
-  databaseName,
-  filter,
+  confirmText = "Yes",
+  label = "Select data",
+  databaseName = "OwlbearRodeoDB",
+  filter = () => true,
 }: SelectDataProps) {
   const [maps, setMaps] = useState<DataRecord>({});
   const [mapGroups, setMapGroups] = useState<Group[]>([]);
@@ -454,12 +454,5 @@ function SelectDataModal({
     </Modal>
   );
 }
-
-SelectDataModal.defaultProps = {
-  label: "Select data",
-  confirmText: "Yes",
-  filter: () => true,
-  databaseName: "OwlbearRodeoDB",
-};
 
 export default SelectDataModal;

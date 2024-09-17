@@ -18,7 +18,7 @@ type ToolSectionProps = {
 };
 
 // Section of map tools with the option to collapse into a vertical list
-function ToolSection({ collapse, tools, onToolClick }: ToolSectionProps) {
+function ToolSection({ collapse = false, tools, onToolClick }: ToolSectionProps) {
   const [showMore, setShowMore] = useState(false);
   const [collapsedTool, setCollapsedTool] = useState<Tool>();
 
@@ -116,9 +116,5 @@ function ToolSection({ collapse, tools, onToolClick }: ToolSectionProps) {
     );
   }
 }
-
-ToolSection.defaultProps = {
-  collapse: false,
-};
 
 export default ToolSection;

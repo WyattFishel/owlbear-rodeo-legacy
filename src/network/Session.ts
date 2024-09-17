@@ -64,19 +64,19 @@ class Session extends EventEmitter {
   async connect() {
     try {
       if (
-        !process.env.REACT_APP_BROKER_URL ||
-        process.env.REACT_APP_MAINTENANCE === "true"
+        !import.meta.env.VITE_APP_BROKER_URL ||
+        import.meta.env.VITE_APP_MAINTENANCE === "true"
       ) {
         this.emit("status", "offline");
         return;
       }
-      this.socket = io(process.env.REACT_APP_BROKER_URL!, {
+      this.socket = io(import.meta.env.VITE_APP_BROKER_URL!, {
         withCredentials: true,
         parser: msgParser,
         transports: ["websocket"],
       });
       const response = await fetch(
-        `${process.env.REACT_APP_BROKER_URL}/iceservers`
+        `${import.meta.env.VITE_APP_BROKER_URL}/iceservers`
       );
       if (!response.ok) {
         throw Error("Unable to fetch ICE servers");
@@ -194,7 +194,7 @@ class Session extends EventEmitter {
       "join_game",
       gameId,
       password,
-      process.env.REACT_APP_VERSION
+      import.meta.env.VITE_APP_VERSION
     );
     this.emit("status", "joining");
   }

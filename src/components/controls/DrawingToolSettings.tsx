@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Flex } from "theme-ui";
-import { useMedia } from "react-media";
+import { useMediaQuery } from 'react-responsive'
 
 import RadioIconButton from "../RadioIconButton";
 
@@ -73,7 +73,7 @@ function DrawingToolSettings({
     }
   }, [disabledActions, settings, onSettingChange]);
 
-  const isSmallScreen = useMedia({ query: "(max-width: 799px)" });
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 799px)" });
 
   const tools = [
     {

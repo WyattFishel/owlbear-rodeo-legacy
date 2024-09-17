@@ -4,7 +4,6 @@ import { saveAs } from "file-saver";
 import * as Comlink from "comlink";
 import shortid from "shortid";
 import { v4 as uuid } from "uuid";
-import { useToasts } from "react-toast-notifications";
 
 import Modal from "../components/Modal";
 import LoadingOverlay from "../components/LoadingOverlay";
@@ -23,6 +22,7 @@ import { Token } from "../types/Token";
 import { Group } from "../types/Group";
 import { RequestCloseEventHandler } from "../types/Events";
 import { Asset } from "../types/Asset";
+import { addToast } from "../helpers/addToast";
 
 const importDBName = "OwlbearRodeoImportDB";
 
@@ -52,7 +52,6 @@ function ImportExportModal({
   const [showImportSelector, setShowImportSelector] = useState(false);
   const [showExportSelector, setShowExportSelector] = useState(false);
 
-  const { addToast } = useToasts();
   function addSuccessToast(
     message: string,
     maps: number,
@@ -61,11 +60,11 @@ function ImportExportModal({
     const mapText = `${maps} map${maps > 1 ? "s" : ""}`;
     const tokenText = `${tokens} token${tokens > 1 ? "s" : ""}`;
     if (maps > 0 && tokens > 0) {
-      addToast(`${message} ${mapText} and ${tokenText}`);
+      addToast(`${message} ${mapText} and ${tokenText}`, "SUCCESS");
     } else if (maps > 0) {
-      addToast(`${message} ${mapText}`);
+      addToast(`${message} ${mapText}`, "SUCCESS");
     } else if (tokens > 0) {
-      addToast(`${message} ${tokenText}`);
+      addToast(`${message} ${tokenText}`, "SUCCESS");
     }
   }
 
@@ -86,7 +85,7 @@ function ImportExportModal({
       }
     }
     const toastMessage = <span>{message} <b>{text}</b></span>
-    addToast(toastMessage, { appearance: "warning", autoDismiss: true });
+    addToast(toastMessage, "WARNING");
   }
 
   function openFileDialog() {

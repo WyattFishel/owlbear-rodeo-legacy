@@ -53,12 +53,13 @@ import { Fog, FogToolSettings } from "../../types/Fog";
 
 import FogShape from "../konva/Fog";
 import Tick from "../konva/Tick";
+import { TToastType } from "../../types/TToastType";
 
 type FogAddEventHandler = (fog: Fog[]) => void;
 type FogCutEventHandler = (fog: Fog[]) => void;
 type FogRemoveEventHandler = (fogId: string[]) => void;
 type FogEditEventHandler = (edit: Partial<Fog>[]) => void;
-type FogErrorEventHandler = (message: string) => void;
+type FogErrorEventHandler = (message: string, toastType: TToastType) => void;
 
 type MapFogProps = {
   map: Map | null;
@@ -306,7 +307,7 @@ function FogTool({
             const state = cutAction.execute(keyBy(shapes, "id"));
 
             if (Object.keys(state).length === shapes.length) {
-              onShapeError("No fog to cut");
+              onShapeError("No fog to cut", "ERROR");
             } else {
               onShapesCut(drawingShapes);
             }
@@ -317,9 +318,9 @@ function FogTool({
           }
         } else {
           if (cut) {
-            onShapeError("Fog already cut");
+            onShapeError("Fog already cut", "WARNING");
           } else {
-            onShapeError("Fog already placed");
+            onShapeError("Fog already placed", "WARNING");
           }
         }
         setDrawingShape(null);
@@ -478,7 +479,7 @@ function FogTool({
         const state = cutAction.execute(keyBy(shapes, "id"));
 
         if (Object.keys(state).length === shapes.length) {
-          onShapeError("No fog to cut");
+          onShapeError("No fog to cut", "ERROR");
         } else {
           onShapesCut(polygonShapes);
         }
@@ -494,9 +495,9 @@ function FogTool({
       }
     } else {
       if (cut) {
-        onShapeError("Fog already cut");
+        onShapeError("Fog already cut", "WARNING");
       } else {
-        onShapeError("Fog already placed");
+        onShapeError("Fog already placed", "WARNING");
       }
     }
 
@@ -627,7 +628,7 @@ function FogTool({
         fillPriority={editable && !shape.visible ? "pattern" : "color"}
         // Disable collision if the fog is transparent and we're not editing it
         // This allows tokens to be moved under the fog
-        hitFunc={editable && !active ? () => {} : undefined}
+        hitFunc={editable && !active ? () => { } : undefined}
       />
     );
   }
@@ -656,7 +657,7 @@ function FogTool({
         stroke={stroke}
         opacity={opacity}
         strokeWidth={gridStrokeWidth * shape.strokeWidth}
-        hitFunc={() => {}}
+        hitFunc={() => { }}
       />
     );
   }

@@ -1,0 +1,1 @@
+export type TToastType = "INFO" | "SUCCESS" | "WARNING" | "ERROR" | "DEFAULT"

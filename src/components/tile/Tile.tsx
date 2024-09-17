@@ -12,18 +12,22 @@ type TileProps = {
   canEdit: boolean;
   badges: React.ReactChild[];
   editTitle: string;
+  size: string,
+  columns: string,
   children: React.ReactNode;
 };
 
 function Tile({
-  title,
-  isSelected,
-  onSelect,
-  onEdit,
-  onDoubleClick,
-  canEdit,
-  badges,
-  editTitle,
+  title = "",
+  isSelected = false,
+  onSelect = () => { },
+  onEdit = () => { },
+  onDoubleClick = () => { },
+  size = "medium",
+  canEdit = false,
+  badges = [],
+  editTitle = "Edit",
+  columns = "1fr",
   children,
 }: TileProps) {
   return (
@@ -133,18 +137,5 @@ function Tile({
     </Box>
   );
 }
-
-Tile.defaultProps = {
-  title: "",
-  isSelected: false,
-  onSelect: () => {},
-  onEdit: () => {},
-  onDoubleClick: () => {},
-  size: "medium",
-  canEdit: false,
-  badges: [],
-  editTitle: "Edit",
-  columns: "1fr",
-};
 
 export default Tile;

@@ -20,4 +20,3 @@ declare module "*.bin" {
 }
 declare module "react-router-hash-link";
 declare module "intersection-observer";
-declare module "ammo.js";

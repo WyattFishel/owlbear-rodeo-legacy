@@ -205,12 +205,12 @@ export class CustomTransformer extends Konva.Transformer {
 function Transformer({
   active,
   nodes,
-  attachments,
+  attachments = [],
   onTransformStart,
   onTransform,
   onTransformEnd,
   gridScale,
-  portalSelector,
+  portalSelector = "#portal",
 }: TransformerProps) {
   const setPreventMapInteraction = useSetPreventMapInteraction();
 
@@ -409,8 +409,7 @@ function Transformer({
             gridCellAbsoluteSizeRef.current
           );
           text.text(
-            `${(nodeScale.x * scale.multiplier).toFixed(scale.digits)}${
-              scale.unit
+            `${(nodeScale.x * scale.multiplier).toFixed(scale.digits)}${scale.unit
             }`
           );
         }
@@ -499,11 +498,6 @@ function Transformer({
 
   return null;
 }
-
-Transformer.defaultProps = {
-  portalSelector: "#portal",
-  attachments: [],
-};
 
 type AnchorImageStatus = "loading" | "loaded" | "failed";
 

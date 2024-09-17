@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import { Flex, Label, Box } from "theme-ui";
-import { useToasts } from "react-toast-notifications";
 import ReactResizeDetector from "react-resize-detector";
 
 import EditMapModal from "./EditMapModal";
@@ -38,6 +37,7 @@ import {
   MapResetEventHandler,
   RequestCloseEventHandler,
 } from "../types/Events";
+import { addToast } from "../helpers/addToast";
 
 type SelectMapProps = {
   isOpen: boolean;
@@ -55,7 +55,6 @@ function SelectMapModal({
   // The map currently being view in the map screen
   currentMap,
 }: SelectMapProps) {
-  const { addToast } = useToasts();
 
   const { databaseStatus } = useDatabase();
 
@@ -101,7 +100,7 @@ function SelectMapModal({
     let mapFiles = [];
     for (let file of files) {
       if (file.size > 5e7) {
-        addToast(`Unable to import map ${file.name} as it is over 50MB`);
+        addToast(`Unable to import map ${file.name} as it is over 50MB`, "ERROR");
       } else {
         mapFiles.push(file);
       }
@@ -232,6 +231,7 @@ function SelectMapModal({
         content: { maxWidth: layout.modalSize, width: "calc(100% - 16px)" },
       }}
       shouldCloseOnEsc={!isDraggingMap}
+      allowClose={true}
     >
       <ImageDrop
         onDrop={({ files }) => handleImagesUpload(files)}

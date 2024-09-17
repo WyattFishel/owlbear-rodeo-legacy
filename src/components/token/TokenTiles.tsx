@@ -17,7 +17,7 @@ type TokenTilesProps = {
   subgroup: boolean;
 };
 
-function TokenTiles({ tokensById, onTokenEdit, subgroup }: TokenTilesProps) {
+function TokenTiles({ tokensById, onTokenEdit, subgroup = false }: TokenTilesProps) {
   const { selectedGroupIds, selectMode, onGroupOpen, onGroupSelect } =
     useGroup();
 
@@ -71,9 +71,5 @@ function TokenTiles({ tokensById, onTokenEdit, subgroup }: TokenTilesProps) {
     </>
   );
 }
-
-TokenTiles.defaultProps = {
-  subgroup: false,
-};
 
 export default TokenTiles;

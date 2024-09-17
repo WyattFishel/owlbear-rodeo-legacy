@@ -1,14 +1,14 @@
 import { Divider, DividerProps } from "theme-ui";
 
 type StyledDividerProps = {
-  vertical: boolean;
-  fill: boolean;
+  vertical?: boolean;
+  fill?: boolean;
 } & DividerProps;
 
 function StyledDivider({
-  vertical,
-  color,
-  fill,
+  vertical = false,
+  color = "text",
+  fill = false,
   ...props
 }: StyledDividerProps) {
   return (
@@ -26,11 +26,5 @@ function StyledDivider({
     />
   );
 }
-
-StyledDivider.defaultProps = {
-  vertical: false,
-  color: "text",
-  fill: false,
-};
 
 export default StyledDivider;

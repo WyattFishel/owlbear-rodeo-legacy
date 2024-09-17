@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Flex, IconButton } from "theme-ui";
-import { useToasts } from "react-toast-notifications";
 import { v4 as uuid } from "uuid";
 
 import MapMenu from "../map/MapMenu";
@@ -35,6 +34,7 @@ import { getRelativePointerPosition } from "../../helpers/konva";
 import { useKeyboard } from "../../contexts/KeyboardContext";
 import shortcuts from "../../shortcuts";
 import { clipboardSupported } from "../../helpers/shared";
+import { addToast } from "../../helpers/addToast";
 
 type SelectionMenuProps = {
   isOpen: boolean;
@@ -61,7 +61,6 @@ function SelectionMenu({
   map,
   mapState,
 }: SelectionMenuProps) {
-  const { addToast } = useToasts();
 
   const userId = useUserId();
 
@@ -242,18 +241,18 @@ function SelectionMenu({
     const tokenText = `${numTokens} token${numTokens > 1 ? "s" : ""}`;
     const noteText = `${numNotes} note${numNotes > 1 ? "s" : ""}`;
     if (numTokens > 0 && numNotes > 0) {
-      addToast(`${message} ${tokenText} and ${noteText}`);
+      addToast(`${message} ${tokenText} and ${noteText}`, "SUCCESS");
     } else if (numTokens > 0) {
-      addToast(`${message} ${tokenText}`);
+      addToast(`${message} ${tokenText}`, "SUCCESS");
     } else if (numNotes > 0) {
-      addToast(`${message} ${noteText}`);
+      addToast(`${message} ${noteText}`, "SUCCESS");
     }
   }
 
   // Keep a local copy of the clipboard if the device doesn't support the clipboard api i.e. iOS
   const localClipboardDataRef = useRef<string>("");
   async function handleCopy() {
-    let version = process.env.REACT_APP_VERSION;
+    let version = import.meta.env.VITE_APP_VERSION;
     if (!version || !selection || !mapState) {
       return;
     }
@@ -285,7 +284,7 @@ function SelectionMenu({
   }
 
   async function handlePaste() {
-    let version = process.env.REACT_APP_VERSION;
+    let version = import.meta.env.VITE_APP_VERSION;
 
     if (!version || !mapState) {
       return;
@@ -359,10 +358,10 @@ function SelectionMenu({
 
         onRequestClose();
       } else {
-        addToast("Invalid data");
+        addToast("Invalid data", "ERROR");
       }
     } catch {
-      addToast("Unable to paste");
+      addToast("Unable to paste", "ERROR");
     }
   }
 

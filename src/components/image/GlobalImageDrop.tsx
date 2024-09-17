@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Box, Flex, Text } from "theme-ui";
-import { useToasts } from "react-toast-notifications";
+import { toast } from "react-toastify";
 
 import LoadingOverlay from "../LoadingOverlay";
 
@@ -25,6 +25,7 @@ import useImageDrop, { ImageDropEvent } from "../../hooks/useImageDrop";
 import { Map } from "../../types/Map";
 import { MapState } from "../../types/MapState";
 import { TokenState } from "../../types/TokenState";
+import { addToast } from "../../helpers/addToast";
 
 type GlobalImageDropProps = {
   children?: React.ReactNode;
@@ -37,7 +38,6 @@ function GlobalImageDrop({
   onMapChange,
   onMapTokensStateCreate,
 }: GlobalImageDropProps) {
-  const { addToast } = useToasts();
 
   const userId = useUserId();
   const { addMap, getMapState } = useMapData();
@@ -65,7 +65,7 @@ function GlobalImageDrop({
     droppedImagesRef.current = [];
     for (let file of files) {
       if (file.size > 5e7) {
-        addToast(`Unable to import image ${file.name} as it is over 50MB`);
+        addToast(`Unable to import image ${file.name} as it is over 50MB`, "ERROR");
       } else {
         droppedImagesRef.current.push(file);
       }

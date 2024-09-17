@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Box } from "theme-ui";
-import { useToasts } from "react-toast-notifications";
 
 import MapControls from "./MapControls";
 import MapInteraction from "./MapInteraction";
@@ -47,6 +46,7 @@ import useMapTokens from "../../hooks/useMapTokens";
 import useMapNotes from "../../hooks/useMapNotes";
 import { MapActions } from "../../hooks/useMapActions";
 import useMapSelection from "../../hooks/useMapSelection";
+import { addToast } from "../../helpers/addToast";
 
 type MapProps = {
   map: MapType | null;
@@ -93,7 +93,6 @@ function Map({
   onUndo,
   onRedo,
 }: MapProps) {
-  const { addToast } = useToasts();
 
   const userId = useUserId();
 

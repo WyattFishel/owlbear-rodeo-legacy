@@ -7,7 +7,7 @@ import ErrorBanner from "../components/banner/ErrorBanner";
 import { getDatabase } from "../database";
 
 //@ts-ignore
-import DatabaseWorker from "worker-loader!../workers/DatabaseWorker"; // eslint-disable-line import/no-webpack-loader-syntax
+// import DatabaseWorker from "worker-loader!../workers/DatabaseWorker"; // eslint-disable-line import/no-webpack-loader-syntax
 import { DatabaseWorkerService } from "../workers/DatabaseWorker";
 
 export type DatabaseStatus = "loading" | "disabled" | "upgrading" | "loaded";
@@ -23,7 +23,7 @@ const DatabaseContext =
   React.createContext<DatabaseContextValue | undefined>(undefined);
 
 const worker: Comlink.Remote<DatabaseWorkerService> = Comlink.wrap(
-  new DatabaseWorker()
+  new Worker(new URL('../workers/DatabaseWorker', import.meta.url), { type: 'module' })
 );
 
 export function DatabaseProvider({ children }: { children: React.ReactNode }) {

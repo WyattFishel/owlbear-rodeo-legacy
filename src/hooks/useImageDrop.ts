@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useToasts } from "react-toast-notifications";
 
 import Vector2 from "../helpers/Vector2";
+import { addToast } from "../helpers/addToast";
 
 export type ImageDropEvent = {
   files: File[];
@@ -12,7 +12,6 @@ function useImageDrop(
   onImageDrop: (event: ImageDropEvent) => void,
   supportFileTypes = ["image/jpeg", "image/gif", "image/png", "image/webp"]
 ) {
-  const { addToast } = useToasts();
 
   const [dragging, setDragging] = useState(false);
   function onDragEnter(event: React.DragEvent<HTMLDivElement>) {
@@ -63,15 +62,15 @@ function useImageDrop(
           if (supportFileTypes.includes(file.type)) {
             imageFiles.push(file);
           } else {
-            addToast(`Unsupported file type for ${file.name}`);
+            addToast(`Unsupported file type for ${file.name}`, "WARNING");
           }
         }
       } catch (e) {
         if (e instanceof Error) {
           if (e.message === "Failed to fetch") {
-            addToast("Unable to import image: failed to fetch");
+            addToast("Unable to import image: failed to fetch", "ERROR");
           } else {
-            addToast("Unable to import image");
+            addToast("Unable to import image", "ERROR");
           }
         }
       }
@@ -82,7 +81,7 @@ function useImageDrop(
       if (supportFileTypes.includes(file.type)) {
         imageFiles.push(file);
       } else {
-        addToast(`Unsupported file type for ${file.name}`);
+        addToast(`Unsupported file type for ${file.name}`, "WARNING");
       }
     }
     const dropPosition = new Vector2(event.clientX, event.clientY);

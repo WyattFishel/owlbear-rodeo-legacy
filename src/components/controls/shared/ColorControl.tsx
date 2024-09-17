@@ -46,7 +46,7 @@ type ColorControlProps = {
   exclude: Color[];
 };
 
-function ColorControl({ color, onColorChange, exclude }: ColorControlProps) {
+function ColorControl({ color, onColorChange, exclude = [] }: ColorControlProps) {
   const [showColorMenu, setShowColorMenu] = useState(false);
   const [colorMenuOptions, setColorMenuOptions] = useState({});
 
@@ -117,9 +117,5 @@ function ColorControl({ color, onColorChange, exclude }: ColorControlProps) {
     </>
   );
 }
-
-ColorControl.defaultProps = {
-  exclude: [],
-};
 
 export default ColorControl;

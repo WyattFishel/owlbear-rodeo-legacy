@@ -15,7 +15,7 @@ function Banner({
   isOpen,
   onRequestClose,
   children,
-  allowClose,
+  allowClose = true,
   backgroundColor,
 }: BannerProps) {
   const { theme } = useThemeUI();
@@ -55,9 +55,5 @@ function Banner({
     </Modal>
   );
 }
-
-Banner.defaultProps = {
-  allowClose: true,
-};
 
 export default Banner;

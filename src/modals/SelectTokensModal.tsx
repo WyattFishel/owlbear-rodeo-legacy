@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import { Flex, Label, Button, Box } from "theme-ui";
-import { useToasts } from "react-toast-notifications";
 import ReactResizeDetector from "react-resize-detector";
 
 import EditTokenModal from "./EditTokenModal";
@@ -42,6 +41,7 @@ import {
   TokensStateCreateHandler,
   RequestCloseEventHandler,
 } from "../types/Events";
+import { addToast } from "../helpers/addToast";
 
 type SelectTokensModalProps = {
   isOpen: boolean;
@@ -54,7 +54,6 @@ function SelectTokensModal({
   onRequestClose,
   onMapTokensStateCreate,
 }: SelectTokensModalProps) {
-  const { addToast } = useToasts();
 
   const { databaseStatus } = useDatabase();
 
@@ -96,7 +95,7 @@ function SelectTokensModal({
     let tokenFiles = [];
     for (let file of files) {
       if (file.size > 5e7) {
-        addToast(`Unable to import token ${file.name} as it is over 50MB`);
+        addToast(`Unable to import token ${file.name} as it is over 50MB`, "ERROR");
       } else {
         tokenFiles.push(file);
       }

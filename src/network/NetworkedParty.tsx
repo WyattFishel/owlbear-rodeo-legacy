@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useToasts } from "react-toast-notifications";
 
 import Session, { PeerTrackAddedEvent, PeerTrackRemovedEvent } from "./Session";
 import { isStreamStopped, omit } from "../helpers/shared";
@@ -7,6 +6,7 @@ import { isStreamStopped, omit } from "../helpers/shared";
 import { useParty } from "../contexts/PartyContext";
 
 import Party from "../components/party/Party";
+import { addToast } from "../helpers/addToast";
 
 /**
  * @typedef {object} NetworkedPartyProps
@@ -25,8 +25,6 @@ function NetworkedParty({ gameId, session }: NetworkedPartyProps) {
   const [partyStreams, setPartyStreams] = useState<Record<string, MediaStream>>(
     {}
   );
-
-  const { addToast } = useToasts();
 
   function handleStreamStart(localStream: MediaStream) {
     setStream(localStream);
@@ -68,7 +66,7 @@ function NetworkedParty({ gameId, session }: NetworkedPartyProps) {
     if (joinedPlayersRef.current.length > 0) {
       for (let id of joinedPlayersRef.current) {
         if (partyState[id]) {
-          addToast(`${partyState[id].nickname} joined the party`);
+          addToast(`${partyState[id].nickname} joined the party`, "INFO");
         }
       }
       joinedPlayersRef.current = [];
@@ -92,7 +90,7 @@ function NetworkedParty({ gameId, session }: NetworkedPartyProps) {
 
     function handlePlayerLeft(sessionId: string) {
       if (partyState[sessionId]) {
-        addToast(`${partyState[sessionId].nickname} left the party`);
+        addToast(`${partyState[sessionId].nickname} left the party`, "INFO");
       }
     }
 

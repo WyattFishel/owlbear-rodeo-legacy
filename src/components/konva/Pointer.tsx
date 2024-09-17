@@ -16,7 +16,7 @@ type PointerProps = {
   color: string;
 };
 
-function Pointer({ position, size, duration, segments, color }: PointerProps) {
+function Pointer({ position, size, duration = 200, segments = 20, color }: PointerProps) {
   const trailRef = useRef<Konva.Line>(null);
   const pointsRef = useRef<PointerPoint[]>([]);
   const prevPositionRef = useRef(position);
@@ -158,12 +158,5 @@ function Pointer({ position, size, duration, segments, color }: PointerProps) {
     </Group>
   );
 }
-
-Pointer.defaultProps = {
-  // Duration of each point in milliseconds
-  duration: 200,
-  // Number of segments in the trail, resampled from the points
-  segments: 20,
-};
 
 export default Pointer;

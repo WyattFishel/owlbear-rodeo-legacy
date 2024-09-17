@@ -68,7 +68,7 @@ function TokenMenu({
   onRequestClose,
   tokenState,
   tokenImage,
-  focus,
+  focus = false,
   onTokenStateChange,
   map,
 }: TokenMenuProps) {
@@ -277,9 +277,5 @@ function TokenMenu({
     </MapMenu>
   );
 }
-
-TokenMenu.defaultProps = {
-  focus: false,
-};
 
 export default TokenMenu;

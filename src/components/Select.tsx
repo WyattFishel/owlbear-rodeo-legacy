@@ -6,7 +6,7 @@ type SelectProps = {
   creatable?: boolean;
 } & Props;
 
-function Select({ creatable, ...props }: SelectProps) {
+function Select({ creatable = false, ...props }: SelectProps) {
   const { theme } = useThemeUI();
 
   const Component: any = creatable ? Creatable : ReactSelect;
@@ -75,9 +75,5 @@ function Select({ creatable, ...props }: SelectProps) {
     />
   );
 }
-
-Select.defaultProps = {
-  creatable: false,
-};
 
 export default Select;

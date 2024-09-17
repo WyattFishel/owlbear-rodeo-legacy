@@ -157,9 +157,12 @@ function DiceButtons({
             disabled={loading}
           />
           <Divider />
-          {buttons.map((button) => (
-            <DiceButton disabled={loading} {...button} />
-          ))}
+          {buttons.map((button, i) => {
+            const { key, ...rest } = button;
+            return (
+              <DiceButton disabled={loading} key={"dice-button-" + i} {...rest} />
+            );
+          })}
           <Divider />
           <IconButton
             aria-label={

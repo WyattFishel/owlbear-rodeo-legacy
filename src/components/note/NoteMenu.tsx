@@ -41,7 +41,7 @@ function NoteMenu({
   onRequestClose,
   note,
   noteNode,
-  focus,
+  focus = false,
   onNoteChange,
   map,
 }: NoteMenuProps) {
@@ -220,9 +220,5 @@ function NoteMenu({
     </MapMenu>
   );
 }
-
-NoteMenu.defaultProps = {
-  focus: false,
-};
 
 export default NoteMenu;

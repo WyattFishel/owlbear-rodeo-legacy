@@ -3,7 +3,7 @@
     "outDir": "./build",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
+    "target": "ESNext",
     "noFallthroughCasesInSwitch": true,
     "noEmitOnError": true,
     "pretty": true,
@@ -11,9 +11,15 @@
     "strict": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "module": "es2022",
+    "module": "EsNext",
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*", "ice.json"],
-  "exclude": ["node_modules/**/*", "./build/**/*"]
+  "include": [
+    "./src/**/*",
+    "ice.json"
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    "./build/**/*"
+  ]
 }

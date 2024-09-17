@@ -15,7 +15,7 @@ import squarePatternLight from "../../images/SquarePatternLight.png";
 import hexPatternDark from "../../images/HexPatternDark.png";
 import hexPatternLight from "../../images/HexPatternLight.png";
 
-function Grid({ stroke }: { stroke: "black" | "white" }) {
+function Grid({ stroke }: { stroke: "black" | "white" } = { stroke: "white" }) {
   const grid = useGrid();
   const gridPixelSize = useGridPixelSize();
   const gridOffset = useGridOffset();
@@ -86,10 +86,5 @@ function Grid({ stroke }: { stroke: "black" | "white" }) {
     </Group>
   );
 }
-
-Grid.defaultProps = {
-  strokeWidth: 0.1,
-  stroke: "white",
-};
 
 export default Grid;

@@ -1,4 +1,4 @@
-function AddIcon({ large }: { large: boolean }) {
+function AddIcon({ large }: { large: boolean } = { large: false }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +12,5 @@ function AddIcon({ large }: { large: boolean }) {
     </svg>
   );
 }
-
-AddIcon.defaultProps = { large: false };
 
 export default AddIcon;

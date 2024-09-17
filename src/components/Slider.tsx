@@ -9,12 +9,12 @@ type SliderModalProps = SliderProps & {
 };
 
 function Slider({
-  min,
-  max,
-  value,
-  ml,
-  mr,
-  labelFunc,
+  min = 0,
+  max = 1,
+  value = 0,
+  ml = 0,
+  mr = 0,
+  labelFunc = (value: number) => value.toString(),
   ...rest
 }: SliderModalProps) {
   const percentValue = ((value - min) * 100) / (max - min);
@@ -71,14 +71,5 @@ function Slider({
     </Box>
   );
 }
-
-Slider.defaultProps = {
-  min: 0,
-  max: 1,
-  value: 0,
-  ml: 0,
-  mr: 0,
-  labelFunc: (value: number) => value,
-};
 
 export default Slider;

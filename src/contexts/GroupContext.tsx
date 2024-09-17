@@ -59,11 +59,11 @@ type GroupProviderProps = {
 };
 
 export function GroupProvider({
-  groups,
-  itemNames,
-  onGroupsChange,
-  onGroupsSelect,
-  disabled,
+  groups = [],
+  itemNames = {},
+  onGroupsChange = () => { },
+  onGroupsSelect = () => { },
+  disabled = false,
   children,
 }: GroupProviderProps) {
   const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([]);
@@ -139,8 +139,8 @@ export function GroupProvider({
   const activeGroups = openGroupId
     ? openGroupItems
     : filter
-    ? filteredGroupItems
-    : groups;
+      ? filteredGroupItems
+      : groups;
 
   function handleGroupsChange(newGroups: Group[]) {
     onGroupsChange(newGroups);
@@ -274,14 +274,6 @@ export function GroupProvider({
     <GroupContext.Provider value={value}>{children}</GroupContext.Provider>
   );
 }
-
-GroupProvider.defaultProps = {
-  groups: [],
-  itemNames: {},
-  onGroupsChange: () => {},
-  onGroupsSelect: () => {},
-  disabled: false,
-};
 
 export function useGroup() {
   const context = useContext(GroupContext);

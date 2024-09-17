@@ -50,10 +50,10 @@ function Note({
   onNoteChange,
   onNoteMenuOpen,
   onNoteMenuClose,
-  draggable,
+  draggable = false,
   onNoteDragStart,
   onNoteDragEnd,
-  fadeOnHover,
+  fadeOnHover = false,
   selected,
 }: NoteProps) {
   const userId = useUserId();
@@ -305,10 +305,5 @@ function Note({
     </>
   );
 }
-
-Note.defaultProps = {
-  fadeOnHover: false,
-  draggable: false,
-};
 
 export default Note;

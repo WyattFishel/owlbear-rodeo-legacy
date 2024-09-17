@@ -22,15 +22,15 @@ type MapMenuProps = {
 function MapMenu({
   isOpen,
   onRequestClose,
-  onModalContent,
-  top,
-  left,
-  bottom,
-  right,
+  onModalContent = () => { },
+  top = "initial",
+  left = "initial",
+  bottom = "initial",
+  right = "initial",
   children,
-  style,
+  style = {},
   // A node to exclude from the pointer event for closing
-  excludeNode,
+  excludeNode = null,
 }: MapMenuProps) {
   // Save modal node in state to ensure that the pointer listeners
   // are removed if the open state changed not from the onRequestClose
@@ -114,15 +114,5 @@ function MapMenu({
     </Modal>
   );
 }
-
-MapMenu.defaultProps = {
-  onModalContent: () => {},
-  top: "initial",
-  left: "initial",
-  right: "initial",
-  bottom: "initial",
-  style: {},
-  excludeNode: null,
-};
 
 export default MapMenu;

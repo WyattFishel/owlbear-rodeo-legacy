@@ -58,7 +58,7 @@ type MapControlsProps = {
   onRedo: () => void;
 };
 
-function MapContols({
+function MapControls({
   onMapChange,
   onMapReset,
   map,
@@ -387,4 +387,4 @@ function MapContols({
   );
 }
 
-export default MapContols;
+export default MapControls;

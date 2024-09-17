@@ -8,7 +8,7 @@ type LoadingOverlayProps = {
   children?: React.ReactNode;
 };
 
-function LoadingOverlay({ bg, children }: LoadingOverlayProps) {
+function LoadingOverlay({ bg = "muted", children }: LoadingOverlayProps) {
   return (
     <Box
       sx={{
@@ -30,9 +30,5 @@ function LoadingOverlay({ bg, children }: LoadingOverlayProps) {
     </Box>
   );
 }
-
-LoadingOverlay.defaultProps = {
-  bg: "muted",
-};
 
 export default LoadingOverlay;

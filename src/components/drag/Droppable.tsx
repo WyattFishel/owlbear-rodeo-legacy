@@ -6,7 +6,7 @@ type DroppableProps = React.HTMLAttributes<HTMLDivElement> & {
   disabled: boolean;
 };
 
-function Droppable({ id, children, disabled, ...props }: DroppableProps) {
+function Droppable({ id, children, disabled = false, ...props }: DroppableProps) {
   const { setNodeRef } = useDroppable({ id, disabled });
 
   return (
@@ -15,9 +15,5 @@ function Droppable({ id, children, disabled, ...props }: DroppableProps) {
     </div>
   );
 }
-
-Droppable.defaultProps = {
-  disabled: false,
-};
 
 export default Droppable;

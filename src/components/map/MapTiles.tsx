@@ -22,7 +22,7 @@ function MapTiles({
   mapsById,
   onMapEdit,
   onMapSelect,
-  subgroup,
+  subgroup = false,
 }: MapTileProps) {
   const { selectedGroupIds, selectMode, onGroupOpen, onGroupSelect } =
     useGroup();
@@ -74,9 +74,5 @@ function MapTiles({
     </>
   );
 }
-
-MapTiles.defaultProps = {
-  subgroup: false,
-};
 
 export default MapTiles;

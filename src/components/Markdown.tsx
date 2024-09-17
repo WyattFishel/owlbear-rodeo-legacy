@@ -167,7 +167,7 @@ function Link({ href, children }: { href: string; children: React.ReactNode }) {
 
 function Markdown({
   source,
-  assets,
+  assets = {},
 }: {
   source: string;
   assets: Record<string, string>;
@@ -193,9 +193,5 @@ function Markdown({
     />
   );
 }
-
-Markdown.defaultProps = {
-  assets: {},
-};
 
 export default Markdown;

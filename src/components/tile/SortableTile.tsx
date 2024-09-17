@@ -23,7 +23,7 @@ function SortableTile({
   hidden,
   children,
   isDragging,
-  cursor,
+  cursor = "pointer",
 }: SortableTileProps) {
   const {
     attributes,
@@ -102,9 +102,5 @@ function SortableTile({
     </animated.div>
   );
 }
-
-SortableTile.defaultProps = {
-  cursor: "pointer",
-};
 
 export default SortableTile;

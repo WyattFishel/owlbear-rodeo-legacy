@@ -8,7 +8,7 @@ function RadioIconButton({
   title,
   onClick,
   isSelected,
-  disabled,
+  disabled = false,
   children,
   ...props
 }: RadioButttonProps) {
@@ -25,9 +25,5 @@ function RadioIconButton({
     </IconButton>
   );
 }
-
-RadioIconButton.defaultProps = {
-  disabled: false,
-};
 
 export default RadioIconButton;

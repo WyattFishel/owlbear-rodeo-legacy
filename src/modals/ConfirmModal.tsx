@@ -15,9 +15,9 @@ function ConfirmModal({
   isOpen,
   onRequestClose,
   onConfirm,
-  confirmText,
-  label,
-  description,
+  confirmText = "Yes",
+  label = "Are you sure?",
+  description = "",
 }: ConfirmModalProps) {
   return (
     <Modal
@@ -44,11 +44,5 @@ function ConfirmModal({
     </Modal>
   );
 }
-
-ConfirmModal.defaultProps = {
-  label: "Are you sure?",
-  description: "",
-  confirmText: "Yes",
-};
 
 export default ConfirmModal;

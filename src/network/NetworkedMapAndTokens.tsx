@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useToasts } from "react-toast-notifications";
 
 import { useMapData } from "../contexts/MapDataContext";
 import { useMapLoading } from "../contexts/MapLoadingContext";
@@ -37,6 +36,7 @@ import {
   EditStatesAction,
   RemoveStatesAction,
 } from "../actions";
+import { addToast } from "../helpers/addToast";
 
 /**
  * @typedef {object} NetworkedMapProps
@@ -47,7 +47,6 @@ import {
  * @param {NetworkedMapProps} props
  */
 function NetworkedMapAndTokens({ session }: { session: Session }) {
-  const { addToast } = useToasts();
   const userId = useUserId();
   const partyState = useParty();
   const { assetLoadStart, assetProgressUpdate, isLoading } = useMapLoading();
@@ -151,7 +150,7 @@ function NetworkedMapAndTokens({ session }: { session: Session }) {
           // Add no owner toast if we don't have asset in out cache
           if (!cachedAsset) {
             // TODO: Stop toast from appearing multiple times
-            addToast("Unable to find owner for asset");
+            addToast("Unable to find owner for asset", "ERROR");
           }
           requestingAssetsRef.current.delete(asset.id);
           continue;

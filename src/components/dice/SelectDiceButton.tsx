@@ -15,7 +15,7 @@ type SelectDiceButtonProps = {
 function SelectDiceButton({
   onDiceChange,
   currentDice,
-  disabled,
+  disabled = false,
 }: SelectDiceButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -50,9 +50,5 @@ function SelectDiceButton({
     </>
   );
 }
-
-SelectDiceButton.defaultProps = {
-  disabled: false,
-};
 
 export default SelectDiceButton;

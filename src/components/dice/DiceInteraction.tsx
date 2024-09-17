@@ -4,7 +4,7 @@ import { Scene } from "@babylonjs/core/scene";
 import { Vector3, Color4, Matrix } from "@babylonjs/core/Maths/math";
 import { AmmoJSPlugin } from "@babylonjs/core/Physics/Plugins/ammoJSPlugin";
 import { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
-import Ammo from "ammo.js";
+import Ammo from "ammojs-typed";
 
 import "@babylonjs/core/Physics/physicsEngineComponent";
 import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
@@ -40,8 +40,8 @@ type DiceInteractionProps = {
 
 function DiceInteraction({
   onSceneMount,
-  onPointerDown,
-  onPointerUp,
+  onPointerDown = () => { },
+  onPointerUp = () => { },
 }: DiceInteractionProps) {
   const [error, setError] = useState<Error | undefined>();
 
@@ -51,6 +51,11 @@ function DiceInteraction({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const produceAmmoImport = async () => {
+      const ammoImport = await Ammo.call({});
+      return ammoImport;
+    };
+
     const canvas = canvasRef.current;
 
     if (!canvas) {
@@ -58,57 +63,55 @@ function DiceInteraction({
     }
 
     try {
-      // iOS 15.4 introduced a bug - animation trails ar visible on dice in Safari. Have to disable antialiasing on Safari
-      // https://forum.babylonjs.com/t/render-loop-issue-on-iphone-11-unwanted-animation-trails/29742
+      // iOS 15.4 introduced a bug - animation trails are visible on dice in Safari. Have to disable antialiasing on Safari
       const engine = new Engine(canvas, !isSafari, {
         preserveDrawingBuffer: true,
         stencil: true,
-        // Prevent XR from loading as Safari 15 crashes with this enabled
-        // TODO: Remove when https://github.com/BabylonJS/Babylon.js/pull/11121/files released
-        xrCompatible: false
+        xrCompatible: false, // Prevent XR from loading as Safari 15 crashes with this enabled
       });
       const scene = new Scene(engine);
       scene.clearColor = new Color4(0, 0, 0, 0);
-      // Enable physics
-      Ammo().then(() => {
-        scene.enablePhysics(new Vector3(0, -98, 0), new AmmoJSPlugin(false));
-      });
 
-      let camera = new TargetCamera("camera", new Vector3(0, 33.5, 0), scene);
-      camera.fov = 0.65;
-      camera.setTarget(Vector3.Zero());
+      // Ensure that scene.enablePhysics is called before running the rest of the code
+      produceAmmoImport().then((ImportedAmmo) => {
+        scene.enablePhysics(new Vector3(0, -98, 0), new AmmoJSPlugin(true, ImportedAmmo));
 
-      onSceneMount && onSceneMount({ scene, engine, canvas });
+        // Continue with the rest of the logic after enabling physics
+        let camera = new TargetCamera("camera", new Vector3(0, 33.5, 0), scene);
+        camera.fov = 0.65;
+        camera.setTarget(Vector3.Zero());
 
-      engineRef.current = engine;
-      sceneRef.current = scene;
+        onSceneMount && onSceneMount({ scene, engine, canvas });
 
-      engine.runRenderLoop(() => {
-        const scene = sceneRef.current;
-        const selectedMesh = selectedMeshRef.current;
-        if (selectedMesh && scene) {
-          const ray = scene.createPickingRay(
-            scene.pointerX,
-            scene.pointerY,
-            Matrix.Identity(),
-            camera
-          );
-          const currentPosition = selectedMesh.getAbsolutePosition();
-          let newPosition = ray.origin.scale(camera.globalPosition.y);
-          newPosition.y = currentPosition.y;
-          const delta = newPosition.subtract(currentPosition);
-          selectedMesh.setAbsolutePosition(newPosition);
-          const velocity = delta.scale(1000 / scene.deltaTime);
-          selectedMeshVelocityWindowRef.current =
-            selectedMeshVelocityWindowRef.current.slice(
-              Math.max(
-                selectedMeshVelocityWindowRef.current.length -
-                  selectedMeshVelocityWindowSize,
-                0
-              )
+        engineRef.current = engine;
+        sceneRef.current = scene;
+
+        engine.runRenderLoop(() => {
+          const scene = sceneRef.current;
+          const selectedMesh = selectedMeshRef.current;
+          if (selectedMesh && scene) {
+            const ray = scene.createPickingRay(
+              scene.pointerX,
+              scene.pointerY,
+              Matrix.Identity(),
+              camera
             );
-          selectedMeshVelocityWindowRef.current.push(velocity);
-        }
+            const currentPosition = selectedMesh.getAbsolutePosition();
+            let newPosition = ray.origin.scale(camera.globalPosition.y);
+            newPosition.y = currentPosition.y;
+            const delta = newPosition.subtract(currentPosition);
+            selectedMesh.setAbsolutePosition(newPosition);
+            const velocity = delta.scale(1000 / scene.deltaTime);
+            selectedMeshVelocityWindowRef.current =
+              selectedMeshVelocityWindowRef.current.slice(
+                Math.max(
+                  selectedMeshVelocityWindowRef.current.length - selectedMeshVelocityWindowSize,
+                  0
+                )
+              );
+            selectedMeshVelocityWindowRef.current.push(velocity);
+          }
+        });
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -116,6 +119,7 @@ function DiceInteraction({
       }
     }
   }, [onSceneMount]);
+
 
   const selectedMeshRef = useRef<AbstractMesh | null>(null);
   const selectedMeshVelocityWindowRef = useRef<Vector3[]>([]);
@@ -217,10 +221,5 @@ function DiceInteraction({
     </div>
   );
 }
-
-DiceInteraction.defaultProps = {
-  onPointerDown() {},
-  onPointerUp() {},
-};
 
 export default DiceInteraction;

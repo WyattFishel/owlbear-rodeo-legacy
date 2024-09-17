@@ -36,7 +36,7 @@ function PointerTool({
   onPointerMove,
   onPointerUp,
   visible,
-  color,
+  color = "red",
 }: MapPointerProps) {
   const mapWidth = useMapWidth();
   const mapHeight = useMapHeight();
@@ -106,9 +106,5 @@ function PointerTool({
     </Group>
   );
 }
-
-PointerTool.defaultProps = {
-  color: "red",
-};
 
 export default PointerTool;
