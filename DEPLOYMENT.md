@@ -6,7 +6,11 @@ These are the deployment settings for running this on a sub-path on a Linux clou
 
 **PS:** The readme still applies here, but I removed yarn. Build both the backend and frontend with `npm run build`.
 
-**PPS:** This runs on Node 18, not Node LTS! The frontend will work on Node LTS, but not the backend (at the moment). If you're using a Linux VM, just install `nvm` and run `nvm install 18` and then `nvm use 18` for your machine. 
+**PPS:** This runs on Node 18, not Node LTS! The frontend will work on Node LTS, but not the backend (at the moment). If you're using a Linux VM, just install `nvm` and run `nvm install 18` and then `nvm use 18` for your machine.
+
+**PPPS:** I removed the Docker/render settings because I didn't feel like revising them to work with the current setup.
+
+**ALSO! Please respect the OB license! Personal use only!**
 
 - **Nginx settings:**
 	- Note: You'll need to serve the frontend, the backend, the websocket connection, and the ice servers.
