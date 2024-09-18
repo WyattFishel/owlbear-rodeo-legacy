@@ -1,8 +1,11 @@
 # Deployment Settings
 ### Preface
 These are the deployment settings for running this on a sub-path on a Linux cloud vm. I'm using Linode/debian, but it shouldn't matter. This guide assumes you've already installed nginx, you're running the owlbear backend on Docker or PM2 (I'm using PM2), and that you have a domain name configured for it.
+
 **NOTE:** My motivation for deploying it on a subpath is because I'm incorporating it into another site. If you just want to deploy it to a base site, then you can remove a good amount of this config.
+
 **PS:** The readme still applies here, but I removed yarn. Build both the backend and frontend with `npm run build`.
+
 **PPS:** This runs on Node 18, not Node LTS! The frontend will work on Node LTS, but not the backend (at the moment). If you're using a Linux VM, just install `nvm` and run `nvm install 18` and then `nvm use 18` for your machine. 
 
 - **Nginx settings:**
